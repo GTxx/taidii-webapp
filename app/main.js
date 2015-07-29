@@ -1,9 +1,12 @@
-const API_URL = 'http://localhost:8000';
 import ReactRouter from 'react-router';
 import {Route, RouteHandler} from 'react-router';
 import React from 'react';
 import {Login} from './login.jsx';
+import {TeacherList} from './staff.jsx';
 import $ from 'jquery';
+import mui from 'material-ui';
+
+let ThemeManager = new mui.Styles.ThemeManager();
 
 
 const StudentList = React.createClass({
@@ -86,6 +89,12 @@ const Student = React.createClass({
 })
 
 const App = React.createClass({
+  childContextTypes: {muiTheme: React.PropTypes.object},
+  getChildContext: function() {
+    return {
+      muiTheme: ThemeManager.getCurrentTheme()
+    }
+  },
   render: function(){
     return (
       <div>
@@ -97,9 +106,10 @@ const App = React.createClass({
 
 const routers = (
   <Route handler={App}>
-    <Route path='login' handler={Login}/>
+    <Route path='login' handler={Login} />
     <Route path='students' handler={StudentList} name='student_list' />
     <Route path='/student/:id' handler={Student} name='student' />
+    <Route path='/staff' handler={TeacherList} name='staff_list' />
   </Route>
 );
 
