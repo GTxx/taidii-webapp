@@ -101,6 +101,7 @@ const App = React.createClass({
   render: function(){
     return (
       <div className='container'>
+        adfasdfasdfasdf
         <RouteHandler />
       </div>
     )
@@ -112,8 +113,9 @@ const routers = (
     <Route path='login' handler={Login} />
     <Route path='students' handler={StudentList} name='student_list' />
     <Route path='/student/:id' handler={Student} name='student' />
-    <Route path='staff' handler={TeacherList} name='staff_list' />
-    <Route path='staff/:id' handler={TeacherProfile} name='staff' />
+    <Route path='staff' handler={TeacherList} name='staff_list'>
+      <Route path=':id' handler={TeacherProfile} name='staff' />
+    </Route>
   </Route>
 );
 

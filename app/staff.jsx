@@ -1,8 +1,10 @@
 import request from 'superagent';
 import React from 'react';
-import {DropDownMenu, RaisedButton, Toolbar, ToolbarGroup, List, ListItem, Avatar, Paper, TextField, ToolbarSeparator,
+import {RouteHandler} from 'react-router';
+import {DropDownMenu, RaisedButton, Toolbar, ToolbarGroup, List, ListItem, ListDivider, Avatar, Paper, TextField, ToolbarSeparator,
   LinearProgress, CircularProgress, FontIcon}
   from 'material-ui';
+import {Menu, MenuItem} from 'material-ui';
 import {API_URL} from './config.js';
 import lunr from 'lunr';
 
@@ -100,9 +102,7 @@ class TeacherList extends React.Component {
             {list}
           </Paper>
         </div>
-        <div className='col-xl-4'>
-
-        </div>
+        <RouteHandler />
       </div>
     )
   }
@@ -134,6 +134,7 @@ class TeacherProfile extends React.Component {
   }
 
   componentDidMount() {
+    // TODO: refresh only happen in component mount, will cause error
     let token = localStorage['token'];
     console.log(this.props)
     console.log(this.props.params.id)
@@ -150,15 +151,25 @@ class TeacherProfile extends React.Component {
   }
 
   render() {
+    console.log(this.state)
     return (
       <div className='col-xl-4'>
         <FontIcon className='material-icons' />
         <Paper>
           <List subheader="Contact">
-            <ListItem primaryText='account name' disabled={true} secondaryText='wangbin'/>
-            <ListItem primaryText='email' disabled={true} leftIcon={<FontIcon className='material-icons' />} />
-
+            <ListItem primaryText={this.state.teacher.email || 'N.A'} disabled={true} leftIcon={<FontIcon className='material-icons' title='Email'>email</FontIcon>} />
+            <ListItem primaryText={this.state.teacher.address || 'N.A'} disabled={true} leftIcon={<FontIcon className='material-icons' title='Address'>location_on</FontIcon>} />
+            <ListItem primaryText={this.state.teacher.postal_code || 'N.A'} disabled={true} leftIcon={<FontIcon className='material-icons' title='Postal Code'>map</FontIcon>} />
+            <ListItem primaryText={this.state.teacher.mobile_number || 'N.A'} disabled={true} secondaryText='Mobile' leftIcon={<FontIcon className='material-icons' title='Mobile Number'>smartphone</FontIcon>} />
+            <ListItem primaryText={this.state.teacher.home_number || 'N.A'} disabled={true} secondaryText='Home Number' insetChildren={true} />
           </List>
+        </Paper>
+        <Paper>
+          <Menu >
+            <MenuItem primaryText="Bold" secondaryText="&#8984;B" />
+            <MenuItem primaryText={'Gender'} secondaryText={this.state.teacher.gender || 'N.A'} disabled={true} />
+            <MenuItem primaryText={'NRIC'} secondaryText={this.state.teacher.nric || 'N.A'} disabled={true} />
+          </Menu>
         </Paper>
       </div>
     )
