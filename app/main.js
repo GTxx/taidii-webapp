@@ -2,11 +2,14 @@ import ReactRouter from 'react-router';
 import {Route, RouteHandler} from 'react-router';
 import React from 'react';
 import {Login} from './login.jsx';
-import {TeacherList} from './staff.jsx';
+import {TeacherList, Teacher, TeacherProfile} from './staff.jsx';
 import $ from 'jquery';
 import mui from 'material-ui';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+require('bootstrap/dist/css/bootstrap.css');
 
 let ThemeManager = new mui.Styles.ThemeManager();
+injectTapEventPlugin();
 
 
 const StudentList = React.createClass({
@@ -97,7 +100,7 @@ const App = React.createClass({
   },
   render: function(){
     return (
-      <div>
+      <div className='container'>
         <RouteHandler />
       </div>
     )
@@ -109,7 +112,8 @@ const routers = (
     <Route path='login' handler={Login} />
     <Route path='students' handler={StudentList} name='student_list' />
     <Route path='/student/:id' handler={Student} name='student' />
-    <Route path='/staff' handler={TeacherList} name='staff_list' />
+    <Route path='staff' handler={TeacherList} name='staff_list' />
+    <Route path='staff/:id' handler={TeacherProfile} name='staff' />
   </Route>
 );
 

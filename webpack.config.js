@@ -13,7 +13,8 @@ var config = {
   module: {
     loaders: [
       {test: /\.jsx?$/, loader: 'babel-loader'},
-      {test: /\.css$/, loader: 'style!css'}
+      {test: /\.css$/, loader: 'style!css'},
+      { test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000' }
     ]
   }
 };
